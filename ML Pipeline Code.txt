@@ -1,0 +1,19 @@
+# Initialize with any model
+pipeline = MLPipeline(
+    model=RandomForestClassifier(n_estimators=100),
+    scaler='standard',
+    task_type='classification'
+)
+
+# Build and train
+pipeline.build_pipeline()
+pipeline.fit(X_train, y_train)
+
+# Cross-validate
+cv_results = pipeline.cross_validate(X_train, y_train, cv=5)
+pipeline.print_cv_results(cv_results)
+
+# Test and evaluate
+predictions = pipeline.predict(X_test)
+metrics = pipeline.evaluate(X_test, y_test)
+pipeline.print_evaluation(metrics)
